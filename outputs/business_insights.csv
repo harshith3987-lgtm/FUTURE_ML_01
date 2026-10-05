@@ -1,0 +1,10 @@
+Metric,Value
+average_daily_sales,637556.3849186868
+highest_daily_sales,1463083.962459
+highest_sales_day,Sunday
+highest_sales_month,12
+best_model,Random Forest
+random_forest_mae,76821.4195108638
+random_forest_rmse,133556.95920379958
+random_forest_mape,47.503538759941804
+average_30_day_forecast,795445.3120250093
