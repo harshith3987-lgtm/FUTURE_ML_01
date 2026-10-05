@@ -1,0 +1,7 @@
+Model,MAE,RMSE,MAPE
+XGBoost,67607.6,105464.5,24.64
+Improved Random Forest,70350.96,110149.09,28.28
+HistGradientBoosting,75580.38,113794.55,27.77
+Baseline Random Forest,76821.42,133556.96,47.5
+Tuned XGBoost,77764.03,114031.17,25.44
+Tuned HistGradientBoosting,82841.34,119229.88,26.69

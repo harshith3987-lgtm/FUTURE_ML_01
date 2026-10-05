@@ -1,0 +1,9 @@
+Metric,Value
+Selected Model,XGBoost
+MAE,67607.6
+RMSE,105464.5
+MAPE,24.64
+Validation Period,2016-07-01 to 2017-08-15
+Average Actual Daily Sales,831372.98
+Average Predicted Daily Sales,811621.94
+MAE as Percentage of Average Sales,8.13

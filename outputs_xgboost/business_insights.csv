@@ -1,0 +1,11 @@
+Insight,Value
+Selected Model,XGBoost
+Validation Period,2016-07-01 to 2017-08-15
+Mean Absolute Error,67607.6
+Root Mean Squared Error,105464.5
+Mean Absolute Percentage Error,24.64
+Average Actual Daily Sales,831372.98
+Average Predicted Daily Sales,811621.94
+MAE as Percentage of Average Sales,8.13
+Maximum Actual Daily Sales,1463083.96
+Maximum Predicted Daily Sales,1.2001559e+06

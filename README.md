@@ -3,299 +3,208 @@
 
 ## Future Interns — Machine Learning Task 1
 
-A machine learning project for analyzing historical retail sales, identifying demand patterns, comparing forecasting models, and generating a 30-day sales forecast for business demand planning.
-
----
+An end-to-end machine learning project for forecasting retail sales and supporting business demand planning using historical sales and time-series features.
 
 ## Project Overview
 
-Retail businesses need accurate demand estimates to support inventory planning, promotional decisions, staffing, and day-to-day operations.
+Retail businesses need reliable sales forecasts for inventory planning, staffing, promotions, and daily operations.
 
-This project uses historical retail sales data to:
+This project develops a machine learning-based retail sales forecasting system using the Store Sales — Time Series Forecasting dataset. Multiple regression and ensemble models were developed and evaluated using chronological validation.
 
-- Analyze overall sales trends
-- Identify weekly and monthly seasonality
-- Analyze promotional activity
-- Study holiday and external factors
-- Create time-series features
-- Compare machine learning models
-- Analyze prediction errors
-- Identify important forecasting features
-- Generate a 30-day future sales forecast
+The final selected model is XGBoost, which achieved the best overall validation performance among the evaluated models.
 
----
+## Business Problem
+
+Retail sales vary based on:
+
+- Day-of-week patterns
+- Monthly and seasonal effects
+- Weekend behavior
+- Previous sales patterns
+- Promotions
+- Holidays
+- Long-term trends
+
+The objective is to use historical sales patterns and time-series features to predict future daily sales and support business demand planning.
 
 ## Dataset
 
-The project uses the **Store Sales - Time Series Forecasting** dataset from Kaggle.
+Dataset: Store Sales — Time Series Forecasting
 
-The dataset contains retail sales information from stores and product families along with promotion and external information.
+Source:
 
-### Dataset Summary
+https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data
 
-|     Property      |    Value   |
-|-------------------|------------|
-| Total records     | 3,000,888  |
-| Stores            | 54         |
-| Product families  | 33         | 
-| Start date        | 2013-01-01 |
-| End date          | 2017-08-15 |
-| Dataset frequency | Daily      |
-| Target variable   | Sales      |
+The dataset contains retail sales information from stores and product families in Ecuador.
 
-Raw dataset files are not included in this repository because of their size. They should be downloaded from Kaggle and placed inside `data/raw/`.
+### Dataset Files
 
----
+- train.csv
+- test.csv
+- stores.csv
+- transactions.csv
+- oil.csv
+- holidays_events.csv
+- sample_submission.csv
 
-## Technologies Used
-
-- Python 3.11
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- Jupyter Notebook
-- Joblib
-- Git
-- GitHub
-
----
+Raw Kaggle data is not included in the repository because of dataset size and distribution considerations.
 
 ## Project Workflow
 
-```text
-Raw Dataset
-      ↓
-Data Understanding
-      ↓
-Data Cleaning
-      ↓
-Daily Sales Aggregation
-      ↓
-Exploratory Data Analysis
-      ↓
-Feature Engineering
-      ↓
-Chronological Train-Test Split
-      ↓
-Model Training
-      ↓
-Model Evaluation
-      ↓
-Error Analysis
-      ↓
-Feature Importance Analysis
-      ↓
-30-Day Future Forecast
-      ↓
-Business Insights
-````
-
----
-
-## Data Preparation
-
-The following data preparation steps were performed:
-
-* Checked missing values
-* Checked duplicate records
-* Converted date columns to datetime format
-* Sorted records chronologically
-* Aggregated sales at daily level
-* Analyzed sales distribution
-* Examined weekly sales patterns
-* Examined monthly sales patterns
-* Analyzed promotional activity
-* Examined holiday information
-* Examined the relationship between oil prices and sales
-
-Extreme sales values were not automatically removed because unusual values can represent genuine business demand.
-
----
-
-## Exploratory Data Analysis
-
-### Overall Sales Trend
-
-Daily total sales were analyzed across the complete historical period to understand long-term growth, fluctuations, and unusual demand periods.
-
-### Weekly Seasonality
-
-Average sales were compared across the days of the week to identify recurring weekly demand patterns.
-
-### Monthly Seasonality
-
-Average sales were analyzed by month to identify recurring seasonal behavior.
-
-### Promotion Analysis
-
-The relationship between the number of products on promotion and daily sales was analyzed.
-
-### Holiday Analysis
-
-Sales on holiday and non-holiday dates were compared to identify calendar effects.
-
-### External Factor Analysis
-
-Oil prices were compared with daily sales to examine their relationship with overall retail demand.
-
----
+1. Business problem definition
+2. Data understanding
+3. Data quality analysis
+4. Data preprocessing
+5. Daily sales aggregation
+6. Exploratory data analysis
+7. Time-series feature engineering
+8. Chronological train-validation split
+9. Baseline model development
+10. Random Forest improvement
+11. HistGradientBoosting experimentation
+12. XGBoost experimentation
+13. Model comparison
+14. Error analysis
+15. Feature importance analysis
+16. 30-day future sales forecasting
+17. Business insight generation
 
 ## Feature Engineering
 
-Time-series and calendar-based features were created for machine learning.
-
 ### Calendar Features
 
-* Year
-* Month
-* Quarter
-* Day
-* Day of Week
-* Weekend Indicator
+- Year
+- Month
+- Quarter
+- Day
+- Day of week
+- Weekend indicator
 
 ### Lag Features
 
-* Lag 1 day
-* Lag 7 days
-* Lag 14 days
-* Lag 30 days
+- Lag 1
+- Lag 3
+- Lag 5
+- Lag 7
+- Lag 14
+- Lag 21
+- Lag 28
+- Lag 30
 
 ### Rolling Features
 
-* 7-day rolling mean
-* 14-day rolling mean
-* 30-day rolling mean
+- Rolling mean 3
+- Rolling mean 7
+- Rolling mean 14
+- Rolling mean 30
+- Rolling standard deviation 7
+- Rolling standard deviation 14
 
-Rolling features were calculated using previous observations to avoid using future sales information.
+### Exponential Weighted Features
 
----
+- EWM 7
+- EWM 14
 
-## Train-Test Strategy
+Historical rolling features were shifted to prevent future-data leakage.
 
-A chronological train-test split was used instead of a random split.
+## Validation Strategy
 
-```text
-Historical Data
-      ↓
-Training Period
-2013 → 2016
-      ↓
-Testing Period
-2017
-```
+A chronological train-validation split was used instead of a random split because this is a time-series forecasting problem.
 
-This approach is appropriate for time-series forecasting because future observations should not be used to train the model.
+Validation period:
 
----
+**2016-07-01 to 2017-08-15**
 
-## Machine Learning Models
+This approach better represents how the model would perform when predicting future observations from historical data.
 
-### Linear Regression
+## Models Evaluated
 
-Linear Regression was used as the baseline model.
-
-### Random Forest Regressor
-
-Random Forest was used to capture nonlinear relationships between historical sales, calendar features, lag features, and rolling statistics.
-
----
+- Baseline Random Forest
+- Improved Random Forest
+- HistGradientBoosting
+- Tuned HistGradientBoosting
+- XGBoost
+- Tuned XGBoost
 
 ## Model Performance
 
-| Model             |           MAE |           RMSE |       MAPE |
-| ----------------- | ------------: | -------------: | ---------: |
-| Linear Regression |     83,290.98 |     141,134.40 |     49.63% |
-| Random Forest     | **76,821.42** | **133,556.96** | **47.50%** |
+|            Model           |       MAE     |      RMSE      |      MAPE      |
+|----------------------------|---------------|----------------|----------------|
+| Baseline Random Forest     | 76,821.42     | 133,556.96     | 47.50%         |
+| Improved Random Forest     | 70,350.96     | 110,149.09     | 28.28%         |
+| HistGradientBoosting       | 75,580.38     | 113,794.55     | 27.77%         |
+| Tuned HistGradientBoosting | 82,841.34     | 119,229.88     | 26.69%         |
+| **XGBoost**                | **67,607.60** | **105,464.50** | **24.64%**     |
+| Tuned XGBoost              | 77,764.03     | 114,031.17     | 25.44%         |
 
-### Best Performing Model
+## Final Model
 
-**Random Forest Regressor**
+### XGBoost
 
-Random Forest achieved lower MAE, RMSE, and MAPE than Linear Regression on the chronological test period.
+XGBoost was selected as the final model because it achieved the lowest validation error among the evaluated models.
 
----
+### Performance
+
+- MAE: **67,607.60**
+- RMSE: **105,464.50**
+- MAPE: **24.64%**
+
+Compared with the baseline Random Forest:
+
+- MAE improved by approximately **12.0%**
+- RMSE improved by approximately **21.0%**
+- MAPE improved by approximately **48.1%**
+
+The tuned XGBoost model did not outperform the original XGBoost model on the chronological validation set. Therefore, the original XGBoost model was selected as the final model.
 
 ## Feature Importance
 
-The Random Forest model identified recent historical sales patterns as the strongest predictors.
+The most influential XGBoost features were:
 
-The most important features included:
+|      Feature      | Importance |
+|-------------------|------------|
+| `lag_7`           | 23.96%     |
+| `is_weekend`      | 22.25%     |
+| `lag_14`          | 12.10%     |
+| `day_of_week_num` | 8.35%      |
+| `rolling_mean_7`  | 8.07%      |
+| `lag_1`           | 5.15%      |
+| `ewm_7`           | 5.01%      |
+| `rolling_mean_3`  | 2.54%      |
+| `day`             | 1.91%      |
+| `ewm_14`          | 1.89%      |
 
-1. `lag_7`
-2. `lag_14`
-3. `lag_1`
-4. `rolling_mean_7`
-5. `day`
-6. `day_of_week_num`
-
-This indicates that recent daily and weekly sales patterns have a strong influence on predicted demand.
-
----
-
-## Error Analysis
-
-Prediction errors were analyzed over the test period to identify periods where the model performed poorly.
-
-Error analysis helps identify unusual demand patterns, holidays, sharp sales changes, and periods where forecasting becomes more difficult.
-
----
-
-## Future Sales Forecast
-
-A recursive forecasting approach was used to generate a **30-day future sales forecast** after the end of the available historical data.
-
-### Forecast Period
-
-**2017-08-16 to 2017-09-14**
-
-### Forecast Summary
-
-| Metric                   |        Value |
-| ------------------------ | -----------: |
-| Average forecasted sales |   795,445.31 |
-| Highest forecasted sales | 1,186,865.70 |
-| Lowest forecasted sales  |   642,288.34 |
-
-The forecast uses historical sales, lag features, rolling averages, and calendar features.
-
----
+The results show that recent weekly sales patterns and weekly calendar behavior are important for predicting retail demand.
 
 ## Business Insights
 
-* Average historical daily sales were approximately **637,556**.
-* The highest recorded daily sales were approximately **1.46 million**.
-* **Sunday** had the highest average sales among the days of the week.
-* **December** had the highest average monthly sales.
-* Random Forest performed better than the Linear Regression baseline.
-* Recent weekly sales patterns were among the strongest predictors of future demand.
+The final XGBoost model achieved:
 
-These insights can support short-term inventory planning, demand monitoring, and promotional planning.
+- Average actual daily sales: **831,372.98**
+- Average predicted daily sales: **811,621.94**
+- MAE as a percentage of average sales: **8.13%**
+- Maximum actual daily sales: **1,463,083.96**
+- Maximum predicted daily sales: approximately **1.20 million**
 
----
+These results can support:
 
-## Project Outputs
+- Inventory planning
+- Workforce planning
+- Promotion planning
+- Demand monitoring
+- Operational decision-making
 
-```text
-outputs/
-├── business_insights.csv
-├── feature_importance.csv
-├── model_performance.csv
-└── forecasts/
-    ├── 30_day_sales_forecast.csv
-    └── final_sales_forecast.csv
-```
+## 30-Day Sales Forecast
 
-### Saved Model Files
+The final XGBoost model was used to generate a recursive 30-day sales forecast.
 
-```text
-models/
-├── random_forest_sales_model.joblib
-└── model_features.json
-```
+Forecast output:
 
----
+`outputs_xgboost/forecasts/30_day_sales_forecast.csv`
+
+Forecast visualization:
+
+`outputs_xgboost/figures/xgboost_future_30_day_forecast.png`
 
 ## Project Structure
 
@@ -304,218 +213,78 @@ FUTURE_ML_01/
 │
 ├── data/
 │   ├── raw/
-│   │   ├── holidays_events.csv
-│   │   ├── oil.csv
-│   │   ├── sample_submission.csv
-│   │   ├── stores.csv
-│   │   ├── test.csv
-│   │   ├── train.csv
-│   │   └── transactions.csv
+│   │   └── README.md
 │   └── processed/
 │       └── daily_sales_model_data.csv
 │
 ├── notebooks/
-│   └── sales_forecasting.ipynb
-│
-├── src/
+│   ├── random_forest.ipynb
+│   ├── improved_random_forest.ipynb
+│   ├── hist_gradient_boosting.ipynb
+│   └── xgboost.ipynb
 │
 ├── models/
-│   ├── random_forest_sales_model.joblib
-│   └── model_features.json
+│   ├── random_forest_model.joblib
+│   ├── random_forest_features.joblib
+│   ├── xgboost_model.joblib
+│   └── xgboost_features.joblib
 │
-├── outputs/
+├── outputs_random_forest/
 │   ├── figures/
 │   ├── forecasts/
-│   │   └── 30_day_sales_forecast.csv
-│   ├── business_insights.csv
+│   ├── model_performance.csv
 │   ├── feature_importance.csv
-│   └── model_performance.csv
+│   └── business_insights.csv
 │
-├── dashboard/
+├── outputs_xgboost/
+│   ├── figures/
+│   ├── forecasts/
+│   ├── model_performance.csv
+│   ├── feature_importance.csv
+│   ├── business_insights.csv
+│   ├── final_model_comparison.csv
+│   └── final_xgboost_summary.csv
 │
 ├── README.md
 ├── requirements.txt
 └── .gitignore
-```
+````
 
----
+## Technologies Used
 
-## How to Run
+* Python
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* XGBoost
+* Jupyter Notebook
+* Joblib
+* Git
+* GitHub
 
-### 1. Clone the Repository
+## Key Learning Outcomes
 
-```bash
-git clone https://github.com/harshith3987-lgtm/FUTURE_ML_01.git
-cd FUTURE_ML_01
-```
-
-### 2. Create Virtual Environment
-
-```bash
-python -m venv .venv
-```
-
-### 3. Activate Environment
-
-For Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
-### 4. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 5. Add Dataset
-
-Download the **Store Sales - Time Series Forecasting** dataset from Kaggle and place the required CSV files inside:
-
-```text
-data/raw/
-```
-
-Required files:
-
-```text
-train.csv
-test.csv
-stores.csv
-transactions.csv
-oil.csv
-holidays_events.csv
-```
-
-### 6. Run the Notebook
-
-Open:
-
-```text
-notebooks/sales_forecasting.ipynb
-```
-
-Run the notebook cells sequentially to reproduce the analysis, model training, evaluation, and forecasting results.
-
----
-
-## Model Evaluation
-
-The models were evaluated using:
-
-### Mean Absolute Error (MAE)
-
-Measures the average absolute difference between actual and predicted sales.
-
-### Root Mean Squared Error (RMSE)
-
-Measures prediction error while giving greater weight to larger errors.
-
-### Mean Absolute Percentage Error (MAPE)
-
-Measures the average percentage difference between actual and predicted values.
-
-Lower values indicate better forecasting performance.
-
----
-
-## Key Results
-
-The **Random Forest Regressor** performed better than the Linear Regression baseline across all three evaluation metrics.
-
-```text
-Random Forest
-MAE  :  76,821.42
-RMSE : 133,556.96
-MAPE :      47.50%
-```
-
-The model was then used to generate a 30-day recursive sales forecast.
-
----
-
-## Business Applications
-
-The forecasting system can support:
-
-* Inventory planning
-* Demand planning
-* Sales monitoring
-* Promotional planning
-* Workforce planning
-* Short-term business forecasting
-* Identification of recurring demand patterns
-
----
-
-## Limitations
-
-* The current forecasting model works with aggregated daily sales.
-* Store-level and product-family-level forecasting can be developed further.
-* Additional external variables can be incorporated directly into the forecasting model.
-* Hyperparameter tuning has not been extensively performed.
-* Forecast uncertainty and confidence intervals are not currently included.
-
----
-
-## Future Improvements
-
-* Hyperparameter tuning
-* Store-level forecasting
-* Product-family forecasting
-* Direct integration of promotion features into the forecasting model
-* Holiday-aware forecasting
-* Advanced time-series models
-* Gradient boosting models
-* Forecast confidence intervals
-* Interactive Power BI dashboard
-* Automated forecasting pipeline
-* Model monitoring and retraining
-
----
-
-## Conclusion
-
-This project demonstrates an end-to-end machine learning workflow for retail sales forecasting.
-
-Historical sales data was analyzed to identify trends, seasonality, promotional patterns, holiday effects, and external relationships. Time-based lag and rolling features were then created and used to train machine learning models.
-
-Among the evaluated models, the **Random Forest Regressor** achieved the best performance and was used for future demand forecasting.
-
-The final system provides both predictive results and business-oriented insights that can support retail demand planning and decision-making.
-
----
-
-## Project Status
-
-**Completed — Future Interns Machine Learning Task 1**
-
-The project includes:
-
-* Data understanding
-* Data preparation
+* Time-series data preparation
 * Exploratory data analysis
 * Feature engineering
-* Time-based train-test splitting
-* Machine learning model training
+* Lag and rolling features
+* Chronological model validation
+* Ensemble machine learning
+* XGBoost regression
+* Hyperparameter experimentation
 * Model comparison
-* Model evaluation
 * Error analysis
 * Feature importance analysis
-* 30-day future forecasting
-* Business insights
-* Saved model and output files
+* Future demand forecasting
+* Business-oriented machine learning
 
----
+## Task Status
 
-## Author
+**Future Interns Machine Learning Task 1 — Completed**
 
-**Harshith CH**
-
-B.Tech — Computer Science and Engineering (AI & ML)
-
-GitHub: [https://github.com/harshith3987-lgtm](https://github.com/harshith3987-lgtm)
+The project provides an end-to-end machine learning workflow from retail sales data preparation to model evaluation and 30-day future demand forecasting.
 
 ```
 ```
