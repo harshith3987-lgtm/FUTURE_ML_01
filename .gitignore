@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset files
+data/raw/*.csv
+
+# Generated model files
+models/*.joblib
+
+# Generated outputs
+outputs/*.csv
+outputs/forecasts/*.csv
+
+# VS Code
+.vscode/
