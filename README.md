@@ -33,15 +33,15 @@ The dataset contains retail sales information from stores and product families a
 
 ### Dataset Summary
 
-| Property | Value |
-|---|---:|
-| Total records | 3,000,888 |
-| Stores | 54 |
-| Product families | 33 |
-| Start date | 2013-01-01 |
-| End date | 2017-08-15 |
-| Dataset frequency | Daily |
-| Target variable | Sales |
+|     Property      |    Value   |
+|-------------------|------------|
+| Total records     | 3,000,888  |
+| Stores            | 54         |
+| Product families  | 33         | 
+| Start date        | 2013-01-01 |
+| End date          | 2017-08-15 |
+| Dataset frequency | Daily      |
+| Target variable   | Sales      |
 
 Raw dataset files are not included in this repository because of their size. They should be downloaded from Kaggle and placed inside `data/raw/`.
 
@@ -304,7 +304,15 @@ FUTURE_ML_01/
 │
 ├── data/
 │   ├── raw/
+│   │   ├── holidays_events.csv
+│   │   ├── oil.csv
+│   │   ├── sample_submission.csv
+│   │   ├── stores.csv
+│   │   ├── test.csv
+│   │   ├── train.csv
+│   │   └── transactions.csv
 │   └── processed/
+│       └── daily_sales_model_data.csv
 │
 ├── notebooks/
 │   └── sales_forecasting.ipynb
@@ -318,6 +326,7 @@ FUTURE_ML_01/
 ├── outputs/
 │   ├── figures/
 │   ├── forecasts/
+│   │   └── 30_day_sales_forecast.csv
 │   ├── business_insights.csv
 │   ├── feature_importance.csv
 │   └── model_performance.csv
