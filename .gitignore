@@ -7,12 +7,15 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Raw dataset
+# Dataset files
 data/raw/*.csv
+
+# Generated model files
+models/*.joblib
+
+# Generated outputs
+outputs/*.csv
+outputs/forecasts/*.csv
 
 # VS Code
 .vscode/
-
-# OS files
-.DS_Store
-Thumbs.db

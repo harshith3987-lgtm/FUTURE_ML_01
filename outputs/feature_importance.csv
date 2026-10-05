@@ -1,14 +1,14 @@
-Feature,Importance
-lag_7,0.5197422326236455
-lag_14,0.1385698777270178
-lag_1,0.11097939691547327
-rolling_mean_7,0.08280383609314328
-day,0.04183271915622951
-day_of_week_num,0.03301805838846939
-is_weekend,0.018208870705729872
-lag_30,0.014037724416452296
-month,0.013780296208362148
-rolling_mean_14,0.0131775067479049
-rolling_mean_30,0.010072352667033227
-year,0.002371436460395344
-quarter,0.0014056918901434864
+Rank,Feature,Importance Score,Importance Percentage,Business Interpretation
+1,lag_7,0.5197422326236455,51.97,"Sales from the previous week, capturing weekly demand patterns."
+2,lag_14,0.1385698777270178,13.86,"Sales from two weeks earlier, capturing recurring demand."
+3,lag_1,0.11097939691547327,11.1,"Previous day's sales, capturing very recent demand."
+4,rolling_mean_7,0.08280383609314328,8.28,"Recent 7-day average demand, reducing short-term fluctuations."
+5,day,0.04183271915622951,4.18,Captures changes in demand across calendar days.
+6,day_of_week_num,0.03301805838846939,3.3,Captures recurring weekly sales patterns.
+7,is_weekend,0.018208870705729872,1.82,Identifies differences between weekday and weekend demand.
+8,lag_30,0.014037724416452296,1.4,Sales from approximately one month earlier.
+9,month,0.013780296208362148,1.38,Captures monthly seasonal demand patterns.
+10,rolling_mean_14,0.0131775067479049,1.32,"Recent 14-day average demand, capturing medium-term trends."
+11,rolling_mean_30,0.010072352667033227,1.01,"Recent 30-day average demand, capturing broader demand trends."
+12,year,0.002371436460395344,0.24,Captures long-term yearly changes in sales demand.
+13,quarter,0.0014056918901434864,0.14,Represents broader quarterly seasonal effects.
